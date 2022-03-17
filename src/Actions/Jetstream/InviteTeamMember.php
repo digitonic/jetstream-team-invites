@@ -2,12 +2,14 @@
 
 namespace App\Actions\Jetstream;
 
+use App\Models\User;
 use Illuminate\Validation\Rule;
 use Laravel\Jetstream\Jetstream;
 use Laravel\Jetstream\Rules\Role;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Truefrontier\JetstreamTeamInvites\Mail\InviteTeamMember as InviteTeamMemberMail;
 use Truefrontier\JetstreamTeamInvites\Models\Invitation;
 use Laravel\Jetstream\Events\InvitingTeamMember;
 use Laravel\Jetstream\Contracts\InvitesTeamMembers;
@@ -37,8 +39,9 @@ class InviteTeamMember implements InvitesTeamMembers
 			'role' => $role,
 			'email' => $email,
 		]);
+        $invitedUser = User::firstWhere('email', $email);
 
-		Mail::to($email)->send(new \Truefrontier\JetstreamTeamInvites\Mail\InviteTeamMember($invitation));
+        Mail::to($email)->send(new InviteTeamMemberMail($invitation, empty($invitedUser) ? false : true));
 	}
 
 	/**

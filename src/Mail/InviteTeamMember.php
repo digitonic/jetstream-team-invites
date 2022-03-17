@@ -14,14 +14,17 @@ class InviteTeamMember extends Mailable
 
     public $invite;
 
+    public bool $hasAccount;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Invitation $invite)
+    public function __construct(Invitation $invite, bool $hasAccount)
     {
         $this->invite = $invite;
+        $this->hasAccount = $hasAccount;
     }
 
     /**
@@ -32,7 +35,7 @@ class InviteTeamMember extends Mailable
     public function build()
     {
         return $this->markdown('emails.teams.invite')
-            ->subject($this->invite->user->name . ' invites you to join ' . $this->invite->team->name)
-            ->with(['invite' => $this->invite]);
+                    ->subject($this->invite->user->name . ' invites you to join ' . $this->invite->team->name)
+                    ->with(['invite' => $this->invite]);
     }
 }
