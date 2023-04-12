@@ -1,5 +1,5 @@
 {
-  "name": "falko189/jetstream-team-invites",
+  "name": "digitonic/jetstream-team-invites",
   "description": "Customize Jetstream Team Invitations",
   "keywords": [
     "truefrontier",
@@ -24,7 +24,7 @@
   "require": {
     "php": "^8.0",
     "doctrine/dbal": "^2.9|^3.0",
-    "illuminate/support": "^9.0"
+    "illuminate/support": "^9.0|^10.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.0"
